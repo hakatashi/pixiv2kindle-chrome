@@ -14,7 +14,9 @@
       "scripts/background.js"
     ]
   },
-  "permissions": [],
+  "permissions": [
+    "https://api.hakatashi.com/"
+  ],
   "options_ui": {
     "page": "options.html",
     "chrome_style": true
