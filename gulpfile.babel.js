@@ -87,7 +87,7 @@ gulp.task('babel', () => {
   return gulp.src('app/scripts.babel/*.js')
       .pipe(transform(file => {
         const emitter = browserify(file, {
-          debug: true,
+          debug: false,
         }).transform(babelify, {
           presets: ['es2015'],
         }).bundle();
