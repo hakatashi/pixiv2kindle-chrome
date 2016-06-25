@@ -1,3 +1,7 @@
 'use strict';
 
-console.log('\'Allo \'Allo! Popup');
+const request = require('request');
+
+request.post('https://api.hakatashi.com/pixiv2kindle/publish', function (error, response, body) {
+	document.write(body);
+});
