@@ -3,6 +3,11 @@ import gulp from 'gulp';
 import gulpLoadPlugins from 'gulp-load-plugins';
 import del from 'del';
 import runSequence from 'run-sequence';
+import transform from 'vinyl-transform';
+import browserify from 'browserify';
+import babelify from 'babelify';
+import duplexer from 'duplexer2';
+import devnull from 'dev-null';
 
 const $ = gulpLoadPlugins();
 
@@ -79,9 +84,15 @@ gulp.task('chromeManifest', () => {
 });
 
 gulp.task('babel', () => {
-  return gulp.src('app/scripts.babel/**/*.js')
-      .pipe($.babel({
-        presets: ['es2015']
+  return gulp.src('app/scripts.babel/*.js')
+      .pipe(transform(file => {
+        const emitter = browserify(file, {
+          debug: true,
+        }).transform(babelify, {
+          presets: ['es2015'],
+        }).bundle();
+
+        return duplexer(devnull(), emitter);
       }))
       .pipe(gulp.dest('app/scripts'));
 });
