@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "pixiv2kindle",
+    "description": "The name of the application"
+  },
+  "appDescription": {
+    "message": "Delivar pixiv novel content directly into your kindle",
+    "description": "The description of the application"
+  }
+}
