@@ -15,6 +15,7 @@
     ]
   },
   "permissions": [
+    "storage",
     "https://api.hakatashi.com/"
   ],
   "options_ui": {
