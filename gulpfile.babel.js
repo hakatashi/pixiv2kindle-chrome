@@ -15,9 +15,10 @@ gulp.task('extras', () => {
   return gulp.src([
     'app/*.*',
     'app/_locales/**',
-    '!app/scripts.babel',
+    '!app/scripts/**/*.babel.js',
     '!app/*.json',
     '!app/*.html',
+    '!app/.gitignore',
   ], {
     base: 'app',
     dot: true
@@ -32,7 +33,7 @@ function lint(files, options) {
   };
 }
 
-gulp.task('lint', lint('app/scripts.babel/**/*.js', {
+gulp.task('lint', lint('app/scripts/**/*.babel.js', {
   env: {
     es6: true
   }
@@ -84,7 +85,7 @@ gulp.task('chromeManifest', () => {
 });
 
 gulp.task('babel', () => {
-  return gulp.src('app/scripts.babel/*.js')
+  return gulp.src('app/scripts/*.babel.js')
       .pipe(transform(file => {
         const emitter = browserify(file, {
           debug: false,
@@ -93,6 +94,9 @@ gulp.task('babel', () => {
         }).bundle();
 
         return duplexer(devnull(), emitter);
+      }))
+      .pipe($.rename(path => {
+        path.basename = path.basename.replace(/\.babel$/, '');
       }))
       .pipe(gulp.dest('app/scripts'));
 });
@@ -110,7 +114,7 @@ gulp.task('watch', ['lint', 'babel', 'html'], () => {
     'app/_locales/**/*.json'
   ]).on('change', $.livereload.reload);
 
-  gulp.watch('app/scripts.babel/**/*.js', ['lint', 'babel']);
+  gulp.watch('app/scripts/**/*.babel.js', ['lint', 'babel']);
 });
 
 gulp.task('size', () => {
