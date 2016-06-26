@@ -16,6 +16,7 @@
   },
   "permissions": [
     "storage",
+    "tabs",
     "https://api.hakatashi.com/"
   ],
   "options_ui": {
