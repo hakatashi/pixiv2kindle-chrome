@@ -1,14 +1,17 @@
 <!doctype html>
 <html>
   <head>
-    <!-- build:css styles/main.css -->
-    <link href="styles/main.css" rel="stylesheet">
-    <!-- endbuild -->
     <!-- build:js scripts/options.js -->
     <script src="scripts/options.js"></script>
     <!-- endbuild -->
   </head>
   <body>
     <h1>pixiv2kindle options</h1>
+    <p>
+      <label for="auth">Authentication Token</label>
+      <input type="text" id="auth" name="auth">
+    </p>
+    <div id="status"></div>
+    <button id="save">Save</button>
   </body>
 </html>
