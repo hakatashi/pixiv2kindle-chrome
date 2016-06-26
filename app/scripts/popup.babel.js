@@ -9,10 +9,6 @@ const pushEvent = (event) => {
 	document.getElementsByClassName('logs')[0].appendChild(li);
 };
 
-document.addEventListener('DOMContentLoaded', () => {
-	pushEvent({event: 'Script Loaded'});
-});
-
 const parser = parse();
 
 request.post('https://api.hakatashi.com/pixiv2kindle/publish').pipe(parser);
