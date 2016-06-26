@@ -46,7 +46,6 @@ chrome.tabs.query({
 			return;
 		} else {
 			pushEvent({
-				error: true,
 				event: 'Got authentication token',
 			});
 		}
