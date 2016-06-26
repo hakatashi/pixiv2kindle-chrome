@@ -2,6 +2,8 @@
 
 const request = require('request');
 const parse = require('csv-parse');
+const url = require('url');
+const assert = require('assert');
 
 const pushEvent = (event) => {
 	const li = document.createElement('li');
@@ -11,12 +13,54 @@ const pushEvent = (event) => {
 
 const parser = parse();
 
-request.post('https://api.hakatashi.com/pixiv2kindle/publish').pipe(parser);
+chrome.tabs.query({
+    active: true,               // Select active tabs
+    lastFocusedWindow: true     // In the current window
+}, tabs => {
+	assert(tabs.length === 1);
 
-parser.on('readable', () => {
-	let record;
-	while (record = parser.read()) {
-		const event = JSON.parse(record[0]);
-		pushEvent(event);
+	const tab = tabs[0];
+	const tabUrl = url.parse(tab.url, true);
+	const novelId = tabUrl.query.id || tabUrl.pathname.match(/^(?:\/whitecube)?\/novel\/(\d+)$/)[1];
+
+	if (!novelId) {
+		pushEvent({
+			error: true,
+			event: 'Failed to determine novel ID',
+		});
+		return;
+	} else {
+		pushEvent({
+			event: 'Determined novel ID',
+		});
 	}
-});
+
+	chrome.storage.sync.get('auth', items => {
+		const auth = items.auth;
+
+		if (!auth || auth === '') {
+			pushEvent({
+				error: true,
+				event: 'Failed to get authentication token',
+			});
+			return;
+		} else {
+			pushEvent({
+				error: true,
+				event: 'Got authentication token',
+			});
+		}
+
+		request.post('https://api.hakatashi.com/pixiv2kindle/publish', {
+			form: {auth, id: novelId},
+		}).pipe(parser);
+
+		parser.on('readable', () => {
+			let record;
+			while (record = parser.read()) {
+				const event = JSON.parse(record[0]);
+				pushEvent(event);
+			}
+		});
+	});
+})
