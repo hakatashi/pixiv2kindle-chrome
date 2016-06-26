@@ -31,7 +31,7 @@ chrome.tabs.query({
 		return;
 	} else {
 		pushEvent({
-			event: 'Determined novel ID',
+			event: `Determined novel ID: ${novelId}`,
 		});
 	}
 
