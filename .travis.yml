@@ -1,0 +1,7 @@
+language: node_js
+node_js:
+  - node
+  - 4
+script: npm run build
+notifications:
+  webhooks: http://webhook.hakatashi.com/travis
