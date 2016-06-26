@@ -18,6 +18,7 @@ gulp.task('extras', () => {
     '!app/scripts/**/*.babel.js',
     '!app/*.json',
     '!app/*.html',
+    '!app/*.css',
     '!app/.gitignore',
   ], {
     base: 'app',
@@ -66,6 +67,12 @@ gulp.task('html',  () => {
     .pipe(gulp.dest('dist'));
 });
 
+gulp.task('less', () => {
+  return gulp.src('app/styles/*.less')
+    .pipe($.less())
+    .pipe(gulp.dest('app/styles'));
+})
+
 gulp.task('chromeManifest', () => {
   return gulp.src('app/manifest.json')
     .pipe($.chromeManifest({
@@ -103,7 +110,7 @@ gulp.task('babel', () => {
 
 gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
 
-gulp.task('watch', ['lint', 'babel', 'html'], () => {
+gulp.task('watch', ['lint', 'babel', 'less', 'html'], () => {
   $.livereload.listen();
 
   gulp.watch([
@@ -115,6 +122,7 @@ gulp.task('watch', ['lint', 'babel', 'html'], () => {
   ]).on('change', $.livereload.reload);
 
   gulp.watch('app/scripts/**/*.babel.js', ['lint', 'babel']);
+  gulp.watch('app/styles/**/*.less', ['less']);
 });
 
 gulp.task('size', () => {
@@ -130,7 +138,7 @@ gulp.task('package', function () {
 
 gulp.task('build', (cb) => {
   runSequence(
-    'lint', 'babel', 'chromeManifest',
+    'lint', ['babel', 'less'], 'chromeManifest',
     ['html', 'images', 'extras'],
     'size', cb);
 });

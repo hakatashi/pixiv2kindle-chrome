@@ -1,2 +1,3 @@
 *.js
 !*.babel.js
+*.css
