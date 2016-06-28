@@ -14,8 +14,8 @@ const pushEvent = (event) => {
 const parser = parse();
 
 chrome.tabs.query({
-    active: true,               // Select active tabs
-    lastFocusedWindow: true     // In the current window
+    active: true,
+    lastFocusedWindow: true,
 }, tabs => {
 	assert(tabs.length === 1);
 
