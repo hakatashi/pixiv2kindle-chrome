@@ -8,6 +8,12 @@ const assert = require('assert');
 const pushEvent = (event) => {
 	const li = document.createElement('li');
 	li.textContent = event.event;
+	if (event.error === true) {
+		li.classList.add('error');
+	}
+	if (event.done === true) {
+		li.classList.add('done');
+	}
 	document.getElementsByClassName('logs')[0].appendChild(li);
 };
 
@@ -61,5 +67,9 @@ chrome.tabs.query({
 				pushEvent(event);
 			}
 		});
+
+		parser.on('finish', () => {
+			pushEvent({done: true, event: 'Done!'});
+		})
 	});
 })
