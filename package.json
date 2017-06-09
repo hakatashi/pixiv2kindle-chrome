@@ -13,7 +13,7 @@
     "babelify": "^7.3.0",
     "browserify": "^14.4.0",
     "csv-parse": "^1.1.1",
-    "del": "^2.2.0",
+    "del": "^3.0.0",
     "gulp": "^3.9.1",
     "gulp-cache": "^0.4.3",
     "gulp-chrome-manifest": "0.0.13",
