@@ -26,7 +26,7 @@
     "gulp-livereload": "^3.8.1",
     "gulp-load-plugins": "^1.2.0",
     "gulp-rename": "^1.2.2",
-    "gulp-size": "^2.1.0",
+    "gulp-size": "^3.0.0",
     "gulp-sourcemaps": "^2.4.0",
     "gulp-uglify": "^3.0.0",
     "gulp-useref": "^3.0.8",
