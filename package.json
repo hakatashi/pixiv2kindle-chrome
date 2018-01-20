@@ -18,7 +18,7 @@
     "gulp-cache": "^0.4.3",
     "gulp-chrome-manifest": "0.0.13",
     "gulp-clean-css": "^3.0.4",
-    "gulp-eslint": "^3.0.1",
+    "gulp-eslint": "^4.0.1",
     "gulp-htmlmin": "^3.0.0",
     "gulp-if": "^2.0.0",
     "gulp-imagemin": "^3.1.1",
